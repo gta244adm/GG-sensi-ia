@@ -1,0 +1,654 @@
+<!DOCTYPE html><html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#07111f" />
+  <title>Free Fire Sens AI Ultra</title>
+  <style>
+    :root{
+      --bg0:#040713;
+      --bg1:#09101f;
+      --bg2:#0d1730;
+      --card:rgba(13,19,36,.78);
+      --card-strong:rgba(10,15,28,.94);
+      --line:rgba(255,255,255,.08);
+      --text:#eef4ff;
+      --muted:#9fb0d0;
+      --green:#31f0a0;
+      --green2:#17c47b;
+      --cyan:#64d8ff;
+      --gold:#f8d36a;
+      --danger:#ff7d97;
+      --shadow:0 24px 80px rgba(0,0,0,.42);
+      --radius:26px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      min-height:100vh;
+      color:var(--text);
+      font-family:Inter,Segoe UI,Arial,sans-serif;
+      background:
+        radial-gradient(circle at 12% 8%, rgba(49,240,160,.18), transparent 20%),
+        radial-gradient(circle at 88% 10%, rgba(100,216,255,.15), transparent 20%),
+        radial-gradient(circle at 50% 100%, rgba(248,211,106,.10), transparent 24%),
+        linear-gradient(160deg,var(--bg0),var(--bg1) 40%,var(--bg2));
+      overflow-x:hidden;
+    }
+    body::before{
+      content:"";
+      position:fixed;inset:0;
+      background:
+        linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
+      background-size:42px 42px;
+      mask-image:linear-gradient(to bottom, rgba(0,0,0,.2), rgba(0,0,0,.8));
+      pointer-events:none;
+      opacity:.2;
+    }
+    .wrap{max-width:1380px;margin:0 auto;padding:20px;position:relative;z-index:1}
+    .hero{
+      border:1px solid var(--line);
+      background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.03));
+      border-radius:32px;
+      padding:28px;
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(18px);
+      margin-bottom:18px;
+      position:relative;
+      overflow:hidden;
+      animation:fadeUp .45s ease both;
+    }
+    .hero::after{
+      content:"";
+      position:absolute;right:-90px;top:-90px;width:260px;height:260px;border-radius:50%;
+      background:radial-gradient(circle, rgba(49,240,160,.16), transparent 65%);
+      pointer-events:none;
+    }
+    .eyebrow{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--green)}
+    h1{margin:10px 0 10px;font-size:clamp(30px,4.7vw,58px);line-height:1.02}
+    .sub{margin:0;max-width:1000px;color:var(--muted);line-height:1.7;font-size:15px}.grid{display:grid;grid-template-columns:1.03fr .97fr;gap:18px;align-items:start}
+.card{
+  border:1px solid var(--line);
+  background:var(--card);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:18px;
+  backdrop-filter:blur(16px);
+  position:relative;
+  overflow:hidden;
+  animation:fadeUp .45s ease both;
+}
+.card::before{
+  content:"";
+  position:absolute;inset:0;
+  background:linear-gradient(135deg, rgba(49,240,160,.05), transparent 35%, rgba(100,216,255,.04));
+  pointer-events:none;
+}
+.section-title{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;position:relative;z-index:1}
+.section-title h2{margin:0;font-size:18px;letter-spacing:.01em}
+.badge{
+  font-size:12px;padding:7px 10px;border-radius:999px;
+  background:rgba(49,240,160,.12);color:#dcfff0;border:1px solid rgba(49,240,160,.2)
+}
+.field{margin-bottom:14px;position:relative;z-index:1}
+label{display:block;font-size:13px;color:#bfd0f2;margin-bottom:7px}
+input,button,textarea{
+  font:inherit;
+  width:100%;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.09);
+  background:rgba(5,9,20,.84);
+  color:var(--text);
+  outline:none;
+  transition:.18s ease;
+}
+input,textarea{padding:13px 14px}
+input:focus,textarea:focus{border-color:rgba(49,240,160,.62);box-shadow:0 0 0 4px rgba(49,240,160,.08)}
+button{cursor:pointer;font-weight:800;padding:13px 16px}
+.btn-primary{background:linear-gradient(135deg,var(--green),#82f7c6);color:#07110a;border:none}
+.btn-secondary{background:rgba(255,255,255,.06)}
+.btn-tertiary{background:rgba(49,240,160,.08);border:1px solid rgba(49,240,160,.16)}
+.btn-row{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.btn-row-3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.btn-primary:hover,.btn-secondary:hover,.btn-tertiary:hover,.toggle:hover,.mini:hover,.stat:hover{transform:translateY(-1px)}
+.btn-primary:active,.btn-secondary:active,.btn-tertiary:active,.toggle:active,.mini:active{transform:translateY(0)}
+
+.toggle-row{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.toggle{
+  padding:12px 14px;border-radius:16px;border:1px solid rgba(255,255,255,.08);
+  background:rgba(255,255,255,.05);text-align:center;cursor:pointer;font-weight:800;color:#edf4ff;user-select:none;transition:.18s ease
+}
+.toggle.active{background:rgba(49,240,160,.16);border-color:rgba(49,240,160,.35);color:#e6fff3;box-shadow:0 0 0 1px rgba(49,240,160,.03) inset}
+.range-box{padding:14px;border-radius:18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07)}
+.range-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
+.range-top span{font-size:13px;color:var(--muted)}
+input[type=range]{width:100%;padding:0;background:transparent;border:none;box-shadow:none}
+input[type=range]::-webkit-slider-runnable-track{height:8px;background:rgba(255,255,255,.13);border-radius:999px}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:22px;height:22px;border-radius:50%;background:var(--green);margin-top:-7px;border:3px solid #07140d}
+
+.modes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.mini{
+  padding:12px;border-radius:16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);cursor:pointer;transition:.18s ease
+}
+.mini strong{display:block;margin-bottom:4px}
+.mini span{font-size:12px;color:var(--muted);line-height:1.4}
+.mini.active{background:rgba(49,240,160,.14);border-color:rgba(49,240,160,.34)}
+
+.panel-grid{display:grid;grid-template-columns:1fr;gap:12px;position:relative;z-index:1}
+.big-score{
+  display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;
+  padding:16px;border-radius:20px;background:linear-gradient(135deg,rgba(49,240,160,.14),rgba(100,216,255,.08));
+  border:1px solid rgba(255,255,255,.08)
+}
+.score-number{font-size:52px;font-weight:900;line-height:1;color:#e2fff0;animation:pulse 2.5s ease-in-out infinite}
+.score-text{font-size:13px;color:#d7e6ff;line-height:1.7}
+
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.stat{padding:14px;border-radius:18px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);transition:.18s ease}
+.stat .k{font-size:12px;color:var(--muted);margin-bottom:6px}
+.stat .v{font-size:28px;font-weight:900;color:#e8fff3}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{padding:8px 10px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);font-size:12px;color:#dce9ff}
+.output{
+  margin-top:12px;
+  background:var(--card-strong);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:18px;
+  padding:14px;
+  white-space:pre-wrap;
+  line-height:1.65;
+  color:#d4e4ff;
+  overflow:auto;
+  min-height:220px;
+}
+.hint{font-size:12px;color:var(--muted);line-height:1.55}
+.mini-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.mini-stat{padding:12px;border-radius:16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07)}
+.mini-stat .k{font-size:11px;color:var(--muted);margin-bottom:6px}
+.mini-stat .v{font-size:20px;font-weight:900;color:#edfdf3}
+.glow-line{height:1px;background:linear-gradient(90deg, transparent, rgba(49,240,160,.5), transparent);margin:16px 0}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.pill{padding:9px 12px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);font-size:12px;color:#dce9ff}
+.pill.green{background:rgba(49,240,160,.12);border-color:rgba(49,240,160,.18);color:#dfffee}
+.pill.gold{background:rgba(248,211,106,.11);border-color:rgba(248,211,106,.18);color:#fff0bf}
+.pill.cyan{background:rgba(100,216,255,.11);border-color:rgba(100,216,255,.18);color:#dbf8ff}
+.autobox{padding:14px;border-radius:18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07)}
+.autobox .top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}
+.autobox .top strong{font-size:14px}
+.progress{height:10px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden;border:1px solid rgba(255,255,255,.05)}
+.progress > div{height:100%;width:50%;border-radius:inherit;background:linear-gradient(90deg,var(--green),var(--cyan));transition:width .35s ease}
+.footer-note{margin-top:12px;font-size:12px;color:var(--muted);line-height:1.6}
+.toast{
+  position:fixed;left:50%;bottom:18px;transform:translateX(-50%) translateY(16px);
+  background:rgba(7,12,22,.95);border:1px solid rgba(255,255,255,.1);color:#eaf6ff;
+  padding:12px 14px;border-radius:999px;box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:.22s ease;z-index:10;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{filter:drop-shadow(0 0 0 rgba(49,240,160,0))}50%{filter:drop-shadow(0 0 18px rgba(49,240,160,.18))}}
+@media (max-width: 1040px){
+  .grid{grid-template-columns:1fr}
+  .btn-row,.btn-row-3,.stats,.modes,.toggle-row,.mini-stats{grid-template-columns:1fr}
+  .score-number{font-size:42px}
+}
+
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <div class="topbar">
+        <div>
+          <div class="eyebrow">Free Fire Sens AI Ultra</div>
+          <h1>IA de sensibilidade com ajuste automático real</h1>
+        </div>
+        <div class="pill green" id="statusPill">IA ativa</div>
+      </div>
+      <p class="sub">Coloca o nome do celular e a IA calcula sozinha o DPI, o tamanho do botão de tiro e a pressão do toque. Tudo atualiza em tempo real com perfil inteligente para capa, equilíbrio e controle. Pronto para GitHub Pages com um único arquivo HTML.</p>
+    </div><div class="grid">
+  <section class="card">
+    <div class="section-title">
+      <h2>Painel da IA</h2>
+      <span class="badge" id="modeBadge">Automático total</span>
+    </div>
+
+    <div class="field">
+      <label for="device">Nome do celular</label>
+      <input id="device" type="text" placeholder="Ex.: Redmi 13C 5G" autocomplete="off" />
+    </div>
+
+    <div class="field">
+      <label>Modo da IA</label>
+      <div class="toggle-row">
+        <div class="toggle active" data-auto="on">Automático total</div>
+        <div class="toggle" data-auto="off">Manual assistido</div>
+      </div>
+      <div class="hint" style="margin-top:8px">No automático total, a IA faz o tuning sozinha. No manual assistido, ela só sugere.</div>
+    </div>
+
+    <div class="field">
+      <label>Estilo de jogo</label>
+      <div class="modes">
+        <div class="mini active" data-style="capa"><strong>Capa</strong><span>Resposta mais agressiva e rápida</span></div>
+        <div class="mini" data-style="equilibrado"><strong>Equilibrado</strong><span>Velocidade com controle estável</span></div>
+        <div class="mini" data-style="controle"><strong>Controle</strong><span>Mais estabilidade e precisão</span></div>
+      </div>
+    </div>
+
+    <div class="autobox">
+      <div class="top">
+        <strong>Entradas e ajustes</strong>
+        <span class="pill" id="autoState">Auto total</span>
+      </div>
+      <div class="field">
+        <label for="dpi">DPI</label>
+        <div class="range-box">
+          <div class="range-top"><span>Menor</span><strong id="dpiVal">240</strong><span>Maior</span></div>
+          <input id="dpi" type="range" min="120" max="600" step="10" value="240" />
+        </div>
+      </div>
+      <div class="field">
+        <label for="button">Tamanho do botão de tiro</label>
+        <div class="range-box">
+          <div class="range-top"><span>Menor</span><strong id="buttonVal">50%</strong><span>Maior</span></div>
+          <input id="button" type="range" min="20" max="80" step="1" value="50" />
+        </div>
+      </div>
+      <div class="field" style="margin-bottom:0">
+        <label for="touch">Toque do dedo</label>
+        <div class="range-box">
+          <div class="range-top"><span>Leve</span><strong id="touchVal">50</strong><span>Forte</span></div>
+          <input id="touch" type="range" min="0" max="100" step="1" value="50" />
+        </div>
+      </div>
+    </div>
+
+    <div class="glow-line"></div>
+
+    <div class="btn-row">
+      <button class="btn-primary" id="copyBtn">Copiar config</button>
+      <button class="btn-secondary" id="applyBtn">Aplicar IA agora</button>
+    </div>
+
+    <div style="margin-top:14px" class="btn-row-3">
+      <button class="btn-tertiary" id="preset1">Preset capa</button>
+      <button class="btn-tertiary" id="preset2">Preset equilíbrio</button>
+      <button class="btn-tertiary" id="preset3">Preset controle</button>
+    </div>
+  </section>
+
+  <aside class="card">
+    <div class="section-title">
+      <h2>Resultado inteligente</h2>
+      <span class="badge">Atualização instantânea</span>
+    </div>
+
+    <div class="panel-grid">
+      <div class="big-score">
+        <div>
+          <div class="eyebrow">Força do preset</div>
+          <div class="score-number" id="scoreNum">94</div>
+        </div>
+        <div class="score-text" id="scoreText">A IA priorizou capa rápida com estabilidade alta e resposta limpa.</div>
+      </div>
+
+      <div class="mini-stats">
+        <div class="mini-stat"><div class="k">DPI alvo</div><div class="v" id="targetDpi">240</div></div>
+        <div class="mini-stat"><div class="k">Botão alvo</div><div class="v" id="targetButton">50%</div></div>
+        <div class="mini-stat"><div class="k">Toque alvo</div><div class="v" id="targetTouch">50</div></div>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><div class="k">Geral</div><div class="v" id="outGeneral">176</div></div>
+        <div class="stat"><div class="k">Ponto vermelho</div><div class="v" id="outRed">160</div></div>
+        <div class="stat"><div class="k">2x</div><div class="v" id="out2x">145</div></div>
+        <div class="stat"><div class="k">4x</div><div class="v" id="out4x">132</div></div>
+        <div class="stat"><div class="k">AWM</div><div class="v" id="outAwm">118</div></div>
+        <div class="stat"><div class="k">Mira livre</div><div class="v" id="outFree">18</div></div>
+      </div>
+
+      <div class="card" style="padding:14px;background:rgba(255,255,255,.04)">
+        <div class="section-title" style="margin-bottom:10px">
+          <h2 style="font-size:16px">Leitura da IA</h2>
+          <span class="pill gold" id="profileTag">Perfil médio</span>
+        </div>
+        <div class="chips" id="chips"></div>
+      </div>
+
+      <div class="autobox">
+        <div class="top">
+          <strong>Recomendação de estabilidade</strong>
+          <span class="pill cyan" id="stabilityTag">Alta</span>
+        </div>
+        <div class="progress"><div id="progressBar"></div></div>
+        <div class="footer-note" id="stabilityText">A IA está entregando um ajuste equilibrado entre velocidade de puxada e controle de recuo.</div>
+      </div>
+
+      <div class="output" id="output"></div>
+      <div class="hint">A lógica é local: identifica perfil do aparelho, estilo, modo automático, DPI, botão e toque. Depois recalcula tudo na hora e salva no navegador.</div>
+    </div>
+  </aside>
+</div>
+
+  </div>  <div class="toast" id="toast">Copiado para a área de transferência</div>  <script>
+    const el = (id) => document.getElementById(id);
+    const device = el('device');
+    const dpi = el('dpi');
+    const button = el('button');
+    const touch = el('touch');
+    const dpiVal = el('dpiVal');
+    const buttonVal = el('buttonVal');
+    const touchVal = el('touchVal');
+    const chips = el('chips');
+    const output = el('output');
+    const scoreNum = el('scoreNum');
+    const scoreText = el('scoreText');
+    const modeBadge = el('modeBadge');
+    const autoState = el('autoState');
+    const statusPill = el('statusPill');
+    const profileTag = el('profileTag');
+    const targetDpi = el('targetDpi');
+    const targetButton = el('targetButton');
+    const targetTouch = el('targetTouch');
+    const progressBar = el('progressBar');
+    const stabilityText = el('stabilityText');
+    const stabilityTag = el('stabilityTag');
+    const toast = el('toast');
+
+    let state = { style: 'capa', auto: true };
+
+    const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+    const round = (v) => Math.round(v);
+
+    function toastMsg(msg) {
+      toast.textContent = msg;
+      toast.classList.add('show');
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(() => toast.classList.remove('show'), 1500);
+    }
+
+    function profileFromDevice(name) {
+      const n = (name || '').toLowerCase();
+      const hit = (list) => list.some(k => n.includes(k));
+      if (hit(['s24','s23','s22','iphone','rog','redmagic','poco f','poco x6 pro','redmi note 13 pro','redmi note 14 pro','oneplus'])) {
+        return { tier: 'alto', base: 1.10, aim: 0.94, label: 'Celular forte detectado', color: 'green' };
+      }
+      if (hit(['redmi note','moto g','galaxy a2','galaxy a1','narzo','realme c67','poco m','redmi 12','redmi 11','infinix gt','galaxy m'])) {
+        return { tier: 'médio', base: 1.00, aim: 1.00, label: 'Celular intermediário detectado', color: 'gold' };
+      }
+      if (hit(['redmi 13c','redmi 12c','redmi 10c','a03','a05','a12','moto e','itel','infinix hot','realme c','tecno pop'])) {
+        return { tier: 'baixo', base: 0.94, aim: 1.08, label: 'Celular de entrada detectado', color: 'cyan' };
+      }
+      return { tier: 'médio', base: 0.98, aim: 1.00, label: 'Perfil genérico aplicado', color: 'gold' };
+    }
+
+    function setStyle(next) {
+      state.style = next;
+      document.querySelectorAll('[data-style]').forEach(x => x.classList.toggle('active', x.dataset.style === next));
+      render();
+    }
+
+    function setAuto(next) {
+      state.auto = next;
+      document.querySelectorAll('[data-auto]').forEach(x => x.classList.toggle('active', x.dataset.auto === (next ? 'on' : 'off')));
+      autoState.textContent = next ? 'Auto total' : 'Manual';
+      modeBadge.textContent = next ? 'Automático total' : 'Manual assistido';
+      statusPill.textContent = next ? 'IA ativa' : 'IA parcial';
+      [dpi, button, touch].forEach(inp => {
+        inp.disabled = next;
+        inp.style.opacity = next ? .55 : 1;
+      });
+      render();
+    }
+
+    function smartTune() {
+      const profile = profileFromDevice(device.value);
+      const styleFactor = state.style === 'capa' ? 1.10 : state.style === 'equilibrado' ? 1.0 : 0.92;
+      const styleDpiBias = state.style === 'capa' ? 18 : state.style === 'equilibrado' ? 6 : -8;
+      const styleButtonBias = state.style === 'capa' ? -4 : state.style === 'equilibrado' ? 0 : 7;
+      const styleTouchBias = state.style === 'capa' ? -6 : state.style === 'equilibrado' ? 0 : 8;
+
+      const tierBiasDpi = profile.tier === 'alto' ? 18 : profile.tier === 'médio' ? 0 : -14;
+      const tierBiasButton = profile.tier === 'alto' ? -1 : profile.tier === 'médio' ? 0 : 3;
+      const tierBiasTouch = profile.tier === 'alto' ? -2 : profile.tier === 'médio' ? 0 : 4;
+
+      const dpiTarget = clamp(240 * styleFactor + styleDpiBias + tierBiasDpi, 140, 540);
+      const buttonTarget = clamp(50 + styleButtonBias + tierBiasButton, 22, 72);
+      const touchTarget = clamp(50 + styleTouchBias + tierBiasTouch, 10, 90);
+
+      if (state.auto) {
+        dpi.value = round(dpiTarget / 10) * 10;
+        button.value = round(buttonTarget);
+        touch.value = round(touchTarget);
+      }
+
+      return { profile, dpiTarget: round(dpiTarget), buttonTarget: round(buttonTarget), touchTarget: round(touchTarget), styleFactor };
+    }
+
+    function buildConfig() {
+      const profile = profileFromDevice(device.value);
+      const d = Number(dpi.value);
+      const b = Number(button.value);
+      const t = Number(touch.value);
+      const styleBoost = state.style === 'capa' ? 1.08 : state.style === 'equilibrado' ? 1.0 : 0.93;
+      const dpiFactor = state.auto ? clamp((d - 180) / 360, 0, 1) : clamp((d - 180) / 320, 0, 1);
+      const buttonFactor = (b - 50) / 50;
+      const touchFactor = (t - 50) / 50;
+      const prof = profile.base;
+
+      const base = { geral: 174, red: 158, two: 142, four: 130, awm: 116, free: 18 };
+      const geral = clamp(base.geral * styleBoost * prof + dpiFactor * 30 - buttonFactor * 13 - touchFactor * 7, 100, 200);
+      const red = clamp(base.red * styleBoost * prof + dpiFactor * 25 - buttonFactor * 11 - touchFactor * 6, 90, 200);
+      const two = clamp(base.two * styleBoost * prof + dpiFactor * 20 - buttonFactor * 10 - touchFactor * 5, 80, 200);
+      const four = clamp(base.four * styleBoost * prof + dpiFactor * 16 - buttonFactor * 8 - touchFactor * 4, 70, 190);
+      const awm = clamp(base.awm * styleBoost * prof + dpiFactor * 11 - buttonFactor * 6 - touchFactor * 3, 60, 180);
+      const free = clamp(base.free + (state.style === 'capa' ? 2 : state.style === 'controle' ? -1 : 0) + (state.auto ? 1 : 0), 10, 30);
+
+      const score = clamp(
+        68 +
+        (state.style === 'capa' ? 14 : state.style === 'equilibrado' ? 10 : 6) +
+        (state.auto ? 11 : 4) +
+        (profile.tier === 'alto' ? 5 : profile.tier === 'baixo' ? 0 : 2) +
+        (b >= 45 && b <= 58 ? 3 : 0) +
+        (t >= 35 && t <= 62 ? 4 : 0),
+        0,
+        100
+      );
+
+      return {
+        profile,
+        score,
+        geral: round(geral),
+        red: round(red),
+        two: round(two),
+        four: round(four),
+        awm: round(awm),
+        free: round(free),
+        explanation:
+          `${profile.label.toLowerCase()}. ` +
+          `A IA está priorizando ${state.style === 'capa' ? 'capa rápida' : state.style === 'equilibrado' ? 'equilíbrio estável' : 'controle fino'} ` +
+          `${state.auto ? 'com ajuste automático total' : 'com assistência manual'}. ` +
+          `O conjunto atual favorece ${b <= 52 ? 'botão menor' : 'botão maior'} e ${t <= 48 ? 'toque leve' : 'toque firme'}.`
+      };
+    }
+
+    function render() {
+      const smart = smartTune();
+      const cfg = buildConfig();
+      const profile = smart.profile;
+
+      dpiVal.textContent = dpi.value;
+      buttonVal.textContent = `${button.value}%`;
+      touchVal.textContent = touch.value;
+      targetDpi.textContent = smart.dpiTarget;
+      targetButton.textContent = `${smart.buttonTarget}%`;
+      targetTouch.textContent = smart.touchTarget;
+      profileTag.textContent = profile.label;
+      profileTag.className = `pill ${profile.color}`;
+      modeBadge.textContent = state.auto ? 'Automático total' : 'Manual assistido';
+      autoState.textContent = state.auto ? 'Auto total' : 'Manual';
+      statusPill.textContent = state.auto ? 'IA ativa' : 'IA parcial';
+
+      scoreNum.textContent = cfg.score;
+      scoreText.textContent = cfg.explanation;
+
+      const stability = clamp(
+        100 - Math.abs(Number(button.value) - smart.buttonTarget) * 2 - Math.abs(Number(touch.value) - smart.touchTarget) * 1.3,
+        30,
+        100
+      );
+      progressBar.style.width = `${stability}%`;
+      if (stability >= 80) {
+        stabilityTag.textContent = 'Alta';
+        stabilityText.textContent = 'A IA está entregando um ajuste muito estável, com excelente equilíbrio entre puxada e controle.';
+      } else if (stability >= 60) {
+        stabilityTag.textContent = 'Média';
+        stabilityText.textContent = 'A configuração está boa, mas ainda dá para aproximar mais o botão e o toque do alvo da IA.';
+      } else {
+        stabilityTag.textContent = 'Baixa';
+        stabilityText.textContent = 'A configuração está distante do ponto ideal; a IA recomenda aplicar o ajuste automático.';
+      }
+
+      el('outGeneral').textContent = cfg.geral;
+      el('outRed').textContent = cfg.red;
+      el('out2x').textContent = cfg.two;
+      el('out4x').textContent = cfg.four;
+      el('outAwm').textContent = cfg.awm;
+      el('outFree').textContent = cfg.free;
+
+      chips.innerHTML = '';
+      const tags = [
+        profile.label,
+        state.style === 'capa' ? 'Foco em capa' : state.style === 'equilibrado' ? 'Perfil balanceado' : 'Perfil de controle',
+        state.auto ? 'IA total ligada' : 'IA parcial ligada',
+        `DPI alvo ${smart.dpiTarget}`,
+        `Botão alvo ${smart.buttonTarget}%`,
+        `Toque alvo ${smart.touchTarget}`,
+        `Estabilidade ${Math.round(stability)}%`
+      ];
+      tags.forEach(text => {
+        const c = document.createElement('div');
+        c.className = 'chip';
+        c.textContent = text;
+        chips.appendChild(c);
+      });
+
+      output.textContent = [
+        `Dispositivo: ${device.value || 'Não informado'}`,
+        `Modo IA: ${state.auto ? 'Automático total' : 'Manual assistido'}`,
+        `Estilo: ${state.style}`,
+        `DPI: ${dpi.value}`,
+        `Botão: ${button.value}%`,
+        `Toque: ${touch.value}`,
+        '',
+        `Geral: ${cfg.geral}`,
+        `Ponto vermelho: ${cfg.red}`,
+        `Mira 2x: ${cfg.two}`,
+        `Mira 4x: ${cfg.four}`,
+        `AWM: ${cfg.awm}`,
+        `Mira livre: ${cfg.free}`,
+        '',
+        `Sugestão IA: DPI ${smart.dpiTarget}, botão ${smart.buttonTarget}%, toque ${smart.touchTarget}`,
+        `Estabilidade estimada: ${Math.round(stability)}%`
+      ].join('\n');
+
+      localStorage.setItem('ff-sens-ai-ultra', JSON.stringify({
+        device: device.value,
+        dpi: dpi.value,
+        button: button.value,
+        touch: touch.value,
+        style: state.style,
+        auto: state.auto
+      }));
+    }
+
+    document.querySelectorAll('[data-style]').forEach(elm => elm.addEventListener('click', () => setStyle(elm.dataset.style)));
+    document.querySelectorAll('[data-auto]').forEach(elm => elm.addEventListener('click', () => setAuto(elm.dataset.auto === 'on')));
+    ['input','change'].forEach(evt => {
+      device.addEventListener(evt, render);
+      dpi.addEventListener(evt, render);
+      button.addEventListener(evt, render);
+      touch.addEventListener(evt, render);
+    });
+
+    el('applyBtn').addEventListener('click', () => {
+      smartTune();
+      render();
+      toastMsg('IA aplicada com sucesso');
+    });
+
+    el('preset1').addEventListener('click', () => {
+      setStyle('capa');
+      setAuto(true);
+      device.value = device.value || 'Redmi 13C 5G';
+      render();
+      toastMsg('Preset capa ativado');
+    });
+
+    el('preset2').addEventListener('click', () => {
+      setStyle('equilibrado');
+      setAuto(true);
+      device.value = device.value || 'Redmi Note 13';
+      render();
+      toastMsg('Preset equilíbrio ativado');
+    });
+
+    el('preset3').addEventListener('click', () => {
+      setStyle('controle');
+      setAuto(true);
+      device.value = device.value || 'Moto G';
+      render();
+      toastMsg('Preset controle ativado');
+    });
+
+    el('copyBtn').addEventListener('click', async () => {
+      const smart = smartTune();
+      const cfg = buildConfig();
+      const text = [
+        `Dispositivo: ${device.value || 'Não informado'}`,
+        `Modo IA: ${state.auto ? 'Automático total' : 'Manual assistido'}`,
+        `Estilo: ${state.style}`,
+        `DPI: ${dpi.value}`,
+        `Botão: ${button.value}%`,
+        `Toque: ${touch.value}`,
+        `Sugestão IA: DPI ${smart.dpiTarget}, botão ${smart.buttonTarget}%, toque ${smart.touchTarget}`,
+        `Geral: ${cfg.geral}`,
+        `Ponto vermelho: ${cfg.red}`,
+        `2x: ${cfg.two}`,
+        `4x: ${cfg.four}`,
+        `AWM: ${cfg.awm}`,
+        `Mira livre: ${cfg.free}`
+      ].join('\n');
+      try {
+        await navigator.clipboard.writeText(text);
+        el('copyBtn').textContent = 'Copiado!';
+        toastMsg('Config copiada');
+        setTimeout(() => el('copyBtn').textContent = 'Copiar config', 1200);
+      } catch {
+        toastMsg('Não foi possível copiar automaticamente');
+      }
+    });
+
+    const saved = localStorage.getItem('ff-sens-ai-ultra');
+    if (saved) {
+      try {
+        const data = JSON.parse(saved);
+        device.value = data.device || '';
+        dpi.value = data.dpi || 240;
+        button.value = data.button || 50;
+        touch.value = data.touch || 50;
+        setStyle(data.style || 'capa');
+        setAuto(data.auto !== false);
+      } catch {
+        setAuto(true);
+      }
+    } else {
+      setAuto(true);
+    }
+
+    render();
+  </script></body>
+</html>
